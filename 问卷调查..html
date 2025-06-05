@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>问卷调查 - 欢迎关注我们</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-attachment: fixed;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .header {
+            background: #2575fc;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo i {
+            font-size: 40px;
+            color: #2575fc;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #2575fc;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            background: #e6f0ff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-left: 10px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            min-width: 28px;
+            height: 28px;
+            background: #2575fc;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 15px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #222;
+        }
+        
+        .step-content p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .qr-code {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            margin-top: 10px;
+        }
+        
+        .qr-placeholder {
+            width: 160px;
+            height: 160px;
+            background: #e0e7ff;
+            border-radius: 10px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .qr-placeholder i {
+            font-size: 60px;
+            color: #2575fc;
+            opacity: 0.6;
+        }
+        
+        .qr-code p {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            display: block;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .primary-btn {
+            background: #2575fc;
+            color: white;
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+        }
+        
+        .primary-btn:active {
+            background: #1c68e0;
+            transform: translateY(2px);
+            box-shadow: 0 2px 8px rgba(37, 117, 252, 0.4);
+        }
+        
+        .secondary-btn {
+            background: #f0f5ff;
+            color: #2575fc;
+            border: 1px solid #c2d6ff;
+        }
+        
+        .secondary-btn:active {
+            background: #e1ebff;
+            transform: translateY(2px);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9ff;
+            color: #888;
+            font-size: 13px;
+            border-top: 1px solid #eee;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .wechat-tips {
+            background: #f0f7ff;
+            border-left: 4px solid #2575fc;
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #555;
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 25px 15px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .step {
+                flex-direction: row;
+            }
+            
+            .step-number {
+                margin-bottom: 0;
+            }
+        }
+        
+        /* 微信浏览器特殊样式调整 */
+        .wechat-ios body {
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* 加载动画 */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s;
+        }
+        
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(37, 117, 252, 0.2);
+            border-top: 5px solid #2575fc;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="loader-spinner"></div>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <h1>欢迎关注我们</h1>
+            <p>感谢您的关注！请参与我们的问卷调查</p>
+        </div>
+        
+        <div class="content">
+            <div class="wechat-tips">
+                <i class="fas fa-info-circle"></i> 提示：点击下方按钮可直接参与问卷，或通过公众号菜单访问
+            </div>
+            
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-list-check"></i>
+                    <h2>问卷调查指引</h2>
+                </div>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>关注后自动接收问卷</h3>
+                            <p>当您关注公众号后，系统会自动发送问卷链接给您，点击即可参与</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>点击菜单访问问卷</h3>
+                            <p>您也可以通过公众号底部的"问卷调查"菜单直接访问</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>发送关键词获取问卷</h3>
+                            <p>在聊天窗口发送"问卷"或"调查"，我们会立即发送问卷链接给您</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-qrcode"></i>
+                    <h2>公众号二维码</h2>
+                </div>
+                
+                <div class="qr-code">
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <p>扫码关注公众号，自动获取问卷</p>
+                </div>
+            </div>
+            
+            <div class="btn-container">
+                <button class="btn primary-btn" id="surveyBtn">
+                    <i class="fas fa-pen-to-square"></i> 立即参与问卷
+                </button>
+                <button class="btn secondary-btn" id="shareBtn">
+                    <i class="fas fa-share-alt"></i> 分享给朋友
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 公司名称 | 提供专业的问卷调查服务</p>
+            <p>点击问卷链接将跳转到腾讯文档平台</p>
+        </div>
+    </div>
+    
+    <script>
+        // 模拟实际场景中的腾讯文档问卷链接
+        const surveyLink = "https://docs.qq.com/form/page/DZlpZeWNwZUhnRFNS";
+        
+        // 设置加载完成后隐藏加载动画
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loader').style.opacity = '0';
+                setTimeout(function() {
+                    document.querySelector('.loader').style.display = 'none';
+                }, 300);
+            }, 800);
+        });
+        
+        // 设置按钮的实际链接
+        document.getElementById('surveyBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 微信内置浏览器使用特殊方式打开链接
+            if (isWeChatBrowser()) {
+                // 显示提示
+                alert('请在浏览器中打开链接：' + surveyLink);
+                
+                // 或者使用微信JS-SDK打开（需要配置）
+                // wx.miniProgram.navigateTo({url: surveyLink});
+            } else {
+                // 非微信环境直接跳转
+                window.location.href = surveyLink;
+            }
+        });
+        
+        // 分享功能
+        document.getElementById('shareBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (isWeChatBrowser()) {
+                // 微信内置浏览器需要JS-SDK才能分享
+                alert('请点击右上角菜单分享给朋友');
+            } else {
+                if (navigator.share) {
+                    // 支持Web Share API的浏览器
+                    navigator.share({
+                        title: '问卷调查邀请',
+                        text: '我正在参与问卷调查，你也来试试吧！',
+                        url: window.location.href
+                    }).catch(console.error);
+                } else {
+                    alert('请手动复制链接分享：' + window.location.href);
+                }
+            }
+        });
+        
+        // 检测是否在微信内置浏览器
+        function isWeChatBrowser() {
+            const ua = navigator.userAgent.toLowerCase();
+            return ua.indexOf('micromessenger') !== -1;
+        }
+        
+        // 添加微信环境标识
+        if (isWeChatBrowser()) {
+            document.documentElement.classList.add('wechat-ios');
+        }
+    </script>
+</body>
+</html>
